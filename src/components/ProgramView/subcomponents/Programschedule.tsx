@@ -34,7 +34,7 @@ const ProgramSchedule = ({ programData }: { programData: ProgramData }) => {
         </div>
       </main>
       <aside className={styles.side_right}>
-        <Image src={'/clock.svg'} alt={'clock icon'} width={60} height={60}></Image>
+        <Image src={'/icons/clock.svg'} alt={'clock icon'} width={60} height={60}></Image>
       </aside>
     </header>)
 }

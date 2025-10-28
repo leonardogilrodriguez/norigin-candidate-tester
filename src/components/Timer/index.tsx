@@ -1,24 +1,16 @@
 'use client';
 
 import styles from './timer.module.css';
-import { useEffect, useState } from 'react';
-import { totalMinutesFromMidnight } from '@utils/dates';
+import { useState } from 'react';
+import { useTimeStore } from '@/src/stores/timeStore';
 
 const Timer = ({ initMinutes } : { initMinutes: number }) => {
     const [time, setTime] = useState(initMinutes);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const calculateMinutes = totalMinutesFromMidnight();
-            setTime(calculateMinutes);
-        }, 60000);
-        
-        const initialMinutes = totalMinutesFromMidnight();
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setTime(initialMinutes);
-
-        return () => clearInterval(interval);
-    }, []);
+    const now = useTimeStore((state) => state.currentMinute);
+    if (now !== time) {
+        setTime(now);
+    }
 
     const overrideStyles = {
         left: `calc(${time} * 1px * var(--pixels-per-minute))`
