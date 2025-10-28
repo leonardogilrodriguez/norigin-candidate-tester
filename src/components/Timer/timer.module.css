@@ -1,0 +1,18 @@
+.timerLine {
+    height: 100%;
+    position: absolute;
+    width: 2px;
+    background-color: orange;
+    z-index:1;
+
+    &::before {
+        content: '';
+        background-color: orange;
+        display: block;
+        width: 6px;
+        position: absolute;
+        top: -42px;
+        left: -2px;
+        height: 42px;
+    }
+}

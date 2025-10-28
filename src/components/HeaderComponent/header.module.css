@@ -1,0 +1,17 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 50px 1fr 50px;
+  width: 100%;
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

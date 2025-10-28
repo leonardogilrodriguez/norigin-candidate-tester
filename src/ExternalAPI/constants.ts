@@ -1,0 +1,2 @@
+export const EPG_ENDPOINT = process.env.NEXT_PUBLIC_EPG_ENDPOINT;
+export const PROGRAM_ENDPOINT = process.env.NEXT_PUBLIC_PROGRAM_ENDPOINT;
