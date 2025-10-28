@@ -1,0 +1,23 @@
+.epg_wrapper {
+    width: 100%; 
+    overflow-x: scroll;
+    overflow-y: hidden;
+    --webkit-overflow-scrolling: touch;
+}
+
+.button {
+    cursor: pointer;
+    z-index: 1;
+    background: #d97706;
+    color: white;
+    border: none;
+    font-size: 16px;
+    position: fixed;
+    top: 159px;
+    right: 30px;
+    border-radius: 8px;
+    padding: 12px 18px;
+    min-height: 44px;
+    min-width: 44px;
+    font-weight: 700;
+}

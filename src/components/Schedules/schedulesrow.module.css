@@ -1,0 +1,12 @@
+.scheduleRow {
+    display: flex;
+    flex-direction: row;
+    height: 75px;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    position: relative;
+    left: var(--channels-width);
+    width: 100%;
+}

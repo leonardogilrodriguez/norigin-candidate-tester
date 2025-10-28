@@ -1,0 +1,26 @@
+.wrapper {
+    background-color: #141414;
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+
+    div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+        margin: 8px 0;
+        line-height: 14px;
+    }
+}
+
+.day {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.today {
+    color: #FFF;
+}
