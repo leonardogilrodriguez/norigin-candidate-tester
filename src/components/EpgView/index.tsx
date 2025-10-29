@@ -23,7 +23,7 @@ const EPGView = async () => {
     <>
       <DaysRow />
         <Channels channels={channelsInfo} />
-        <EPGWrapper initialScrollLeft={initialScrollLeft}>
+        <EPGWrapper initialScrollLeft={initialScrollLeft} channels={channels}>
           <HoursRow />
           <section style={{ position: 'relative', width: calculatedWitdh }}>
             <Schedules channels={channels} />

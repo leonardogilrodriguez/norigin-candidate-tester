@@ -46,6 +46,10 @@ Once built we will only have to launch the project with
 npm run start
 ```
 
+NOTE: Scripts have been modified in order to work in both Windows and Mac environments.
+Besides, concurrent versions of dev and build scripts have been created in order to make the development easier.
+
+
 ## Build with 🛠️
 
 Tools used:
@@ -57,18 +61,34 @@ Tools used:
 * [React-Virtual] (https://tanstack.com/virtual/latest): Headless UI for Virtualizing Large Element Lists
 * [React-Player] (https://www.npmjs.com/package/react-player): A React component for playing a variety of URLs, including file paths, HLS, DASH, YouTube, Vimeo, Wistia and Mux.
 
-## Considerations 📖
+## Highlights 📖
 
 ### 1.  Missing Resources
-To manage missing resources, mainly images, the component ImagesWithFallback has been created, and to set a fallback image, it has been created a fallback logic in utils/fallbackImages.ts
+To gracefully handle missing resources—such as broken images—we developed an ImageWithFallback component. This component utilizes a dedicated fallback mechanism defined in utils/fallbackImages.ts, which supplies a default image whenever the primary source is unavailable or fails to load.
 
-### 2. Too many schedules
-In the main view (EPG view), there will be around 400 elements (schedules) that need to keep tracking the current hour in order to check if the schedule is currently playing. 
-To avoid 400 elements with their own inner clocks, the solution applied has been to create a hook that checks the global store of the site using Zustand.
+### 2. Performance and Optimization Considerations
+The main EPG view contains approximately 400 schedule items, each of which must track the current time to indicate if its program is live.
 
-Besides, there would be still a problem, even thought the hook simplifies the logic, there would still be too many components checking and rendering every minute. To avoid so, the solution apllied has been using virtualization. This way, only components that are in the viewport will check the timer to know is the schedule is currently playing. This improves the performance dramatically.
+Our solution to this performance challenge was two-fold:
 
-### 3. WCAG
+1. Centralized State Management: Instead of equipping each element with its own timer, we created a custom hook that reads from a global Zustand store. This provides a single source of truth for the current time.
+
+2. Virtualization: To prevent all 400 components from re-rendering every minute, we implemented virtualization. This technique ensures that only the visible items in the viewport subscribe to the timer and update, leading to a dramatic performance improvement.
+
+The Lighthouse evaluation yielded the following results:
+
+![alt text](doc/lighthouse.png)
+
+### 3. Additional screens using mock data api
+
+Following the suggestion, a new layout has been added that fetches data from the mock API at http://localhost:1337/program/{id}.
+
+![alt text](doc/programview.png)
+
+This screen presents the program's details and a trailer for the show, complete with a built-in video player to watch it.
+
+
+### 4. WCAG
 
 Achieved AA
 
@@ -81,6 +101,16 @@ Evidences:
 - Program View
 
 ![alt text](doc/wcag_program.png)
+
+### 5. Navigation
+
+Upon first loading the site, the interface initializes by positioning the orange timer line at the start of the current hour. The navigation automatically selects the program scheduled for this time slot on the first channel (the top row in the sidebar), which is clearly indicated by an orange highlight.
+
+![alt text](doc/navigation.png)
+
+If you navigate away using the arrow keys or by manually scrolling, a 'Now' button appears. Clicking 'Now' will instantly return the view to the current hour and reselect the program scheduled for that time. The view will also revert to the channel row you were previously on.
+
+Of course, if 'Enter' button is pressed, we can navigate to the selected program details.
 
 ## Author ✒️
 

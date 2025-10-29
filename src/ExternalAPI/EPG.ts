@@ -1,4 +1,4 @@
-import { differenceInMinutes, startOfDay } from 'date-fns';
+import { differenceInMinutes, startOfDay, subDays } from 'date-fns';
 import { EPG_ENDPOINT } from './constants';
 import { formatDate } from '../utils/dates';
 import { PIXELS_PER_MINUTE } from '../utils/constants';
@@ -20,8 +20,25 @@ export const fetchEPGData = async() => {
         const { start, end } = schedule;
         const runtime = differenceInMinutes(end, start);
         const scheduleWidth = (runtime * PIXELS_PER_MINUTE);
-        const startMinutes = differenceInMinutes(start, startOfDay(new Date()));
-        const endMinutes = differenceInMinutes(end, startOfDay(new Date()));
+
+        let startMinutes = 0; 
+        const differenceStartMinutes = differenceInMinutes(start, startOfDay(new Date()));
+        if (differenceStartMinutes >= 0) {
+          startMinutes = differenceStartMinutes;
+        }
+        else {
+          startMinutes = differenceInMinutes(start, startOfDay(subDays(new Date(), 1)));
+        }
+        
+        let endMinutes = 0; 
+        const differenceEndMinutes = differenceInMinutes(end, startOfDay(new Date()));
+        if (differenceEndMinutes >= 0) {
+          endMinutes = differenceEndMinutes;
+        }
+        else {
+          endMinutes = differenceInMinutes(end, startOfDay(subDays(new Date(), 1)));
+        }
+
         const startStr = formatDate(start);
         const endStr = formatDate(end);
         const timeLiteral = `${startStr} - ${endStr}`
