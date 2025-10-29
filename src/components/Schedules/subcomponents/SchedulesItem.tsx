@@ -38,4 +38,4 @@ const SchedulesItem = ({ schedule, isActive }: { schedule: Schedule, isActive: b
   )
 }
 
-export default React.memo(SchedulesItem);
+export default SchedulesItem;
