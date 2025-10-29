@@ -16,6 +16,11 @@
         font-size: 12px;
         flex: 1;
     }
+
+    &:focus {
+        outline: 2px solid orange;
+        outline-offset: -1px;
+    }
 }
 
 .currentlyPlaying {

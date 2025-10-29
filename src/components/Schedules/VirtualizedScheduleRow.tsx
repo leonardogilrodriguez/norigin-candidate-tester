@@ -3,18 +3,23 @@
 import { useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import SchedulesItem from './subcomponents/SchedulesItem';
+import { useNavigationStore } from '@/src/stores/navigationStore';
 
 interface VirtualizedScheduleRowProps {
   schedules: Schedule[];
   rowHeight: number;
+  rowIndex: number;
 }
 
 export default function VirtualizedScheduleRow({
   schedules,
   rowHeight,
+  rowIndex,
 }: VirtualizedScheduleRowProps) {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const { activeRowIndex, activeColIndex } = useNavigationStore();
+  
   const virtualizer = useVirtualizer({
     horizontal: true,
     count: schedules.length,
@@ -44,6 +49,8 @@ export default function VirtualizedScheduleRow({
       >
         {virtualizer.getVirtualItems().map((virtualItem) => {
           const schedule = schedules[virtualItem.index];
+          const isActive = activeRowIndex === rowIndex && activeColIndex === virtualItem.index;
+
           return (
             <div
               key={`vkey-${virtualItem.key}`}
@@ -58,7 +65,7 @@ export default function VirtualizedScheduleRow({
               }}
               role="listitem"
             >
-              <SchedulesItem schedule={schedule} />
+              <SchedulesItem schedule={schedule} isActive={isActive}/>
             </div>
           );
         })}

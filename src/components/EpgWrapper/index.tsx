@@ -2,11 +2,14 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import styles from './EpgWrapper.module.css';
 import { currentHourScroll } from '@/src/utils/dates';
+import { useNavigationStore } from '@/src/stores/navigationStore';
+import { columnNow } from '@/src/utils/spatialNavigation';
 
-const EPGWrapper = ({ children, initialScrollLeft } : { children: React.ReactNode, initialScrollLeft: number }) => {
+const EPGWrapper = ({ children, initialScrollLeft, channels } : { children: React.ReactNode, initialScrollLeft: number, channels: Channel[] }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isProgrammaticScroll = useRef(true);
     const [isUserScrolling, setIsUserScrolling] = useState(false);
+    const { activeRowIndex, setActiveCell } = useNavigationStore();
 
     useLayoutEffect(() => {
         if (ref.current) {
@@ -42,6 +45,9 @@ const EPGWrapper = ({ children, initialScrollLeft } : { children: React.ReactNod
             });
             setIsUserScrolling(false);
         }
+        //position the keys
+        const column = columnNow(channels, activeRowIndex);
+        setActiveCell(activeRowIndex, column);
     }
 
     return (
