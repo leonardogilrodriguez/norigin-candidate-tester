@@ -37,6 +37,6 @@ export const totalMinutesFromMidnight = () => {
 
 export const currentHourScroll = () => {
   // to scroll until current hour we need to calculate minutos from 0:00 to current hour
-  // then multiply by pixels per minute (5px)
+  // then multiply by pixels per minute
   return getHours(new Date()) * 60 * PIXELS_PER_MINUTE;
 }

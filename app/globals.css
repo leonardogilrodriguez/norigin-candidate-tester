@@ -47,6 +47,16 @@ body {
   width: 70%;
   height: 20%;
   border-radius: 16px;
+
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 }
 
 /* fadeIn generic */
